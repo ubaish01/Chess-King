@@ -31,6 +31,7 @@ class GameManager {
                 }
             }
             else if (message.type === messages_1.MOVE) {
+                console.log(message);
                 const game = this.games.find((curr) => curr.player1 === socket || curr.player2 === socket);
                 if (game)
                     console.log("game found");
