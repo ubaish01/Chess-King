@@ -13,6 +13,8 @@ const Game = () => {
   const socket = useSocket();
   const [board, setBoard] = useState(chess.board());
 
+  console.log(board);
+
   useEffect(() => {
     if (!socket) return;
 

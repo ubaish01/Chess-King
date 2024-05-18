@@ -2,6 +2,7 @@ import { Chess, Color, PieceSymbol, Square } from "chess.js";
 import clsx from "clsx";
 import { useState } from "react";
 import { MOVE } from "../screens/Game";
+import { Pieces } from "../helper/Pieces";
 
 type SquareType = {
   square: Square;
@@ -62,7 +63,9 @@ const Chessboard = ({
                     "w-20 h-20 flex items-center justify-center text-3xl cursor-pointer text-white"
                   )}
                 >
-                  {square?.type}
+                  {square?.type && (
+                    <img src={Pieces[`${square?.type}${square?.color}`]} />
+                  )}
                 </div>
               );
             })}
