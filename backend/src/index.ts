@@ -6,5 +6,7 @@ const gameManager = new GameManager();
 
 wss.on("connection", function connection(ws) {
   gameManager.addUser(ws);
+  console.log("User connected");
+  ws.send("Acknowledgement from server connection");
   ws.on("disconnect", () => gameManager.removeUser(ws));
 });
