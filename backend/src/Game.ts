@@ -28,7 +28,7 @@ export class Game {
         type: INIT_GAME,
         payload: {
           type: "w",
-          opponent: player2?.name,
+          opponent: player2,
         },
       })
     );
@@ -37,7 +37,7 @@ export class Game {
         type: INIT_GAME,
         payload: {
           type: "b",
-          opponent: player1?.name,
+          opponent: player1,
         },
       })
     );

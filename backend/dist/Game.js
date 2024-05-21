@@ -5,12 +5,14 @@ const chess_js_1 = require("chess.js");
 const messages_1 = require("./messages");
 class Game {
     constructor(player1, player2) {
+        var _a, _b;
         this.makeMove = (socket, move) => {
-            if (this.movesCount % 2 == 0 && socket != this.player1) {
+            var _a, _b, _c, _d, _e, _f;
+            if (this.movesCount % 2 == 0 && socket != ((_a = this.player1) === null || _a === void 0 ? void 0 : _a.socket)) {
                 console.log("early return 1");
                 return;
             }
-            if (this.movesCount % 2 == 1 && socket != this.player2) {
+            if (this.movesCount % 2 == 1 && socket != ((_b = this.player2) === null || _b === void 0 ? void 0 : _b.socket)) {
                 console.log("early return 2");
                 return;
             }
@@ -22,13 +24,13 @@ class Game {
                 return;
             }
             if (this.board.isGameOver()) {
-                this.player1.send(JSON.stringify({
+                (_c = this.player1) === null || _c === void 0 ? void 0 : _c.socket.send(JSON.stringify({
                     type: messages_1.GAME_OVER,
                     payload: {
                         winner: this.board.turn() === "w" ? "black" : "white",
                     },
                 }));
-                this.player2.send(JSON.stringify({
+                (_d = this.player2) === null || _d === void 0 ? void 0 : _d.socket.send(JSON.stringify({
                     type: messages_1.GAME_OVER,
                     payload: {
                         winner: this.board.turn() === "w" ? "black" : "white",
@@ -37,13 +39,13 @@ class Game {
                 return;
             }
             if (this.movesCount % 2 === 0) {
-                this.player2.send(JSON.stringify({
+                (_e = this.player2) === null || _e === void 0 ? void 0 : _e.socket.send(JSON.stringify({
                     type: messages_1.MOVE,
                     payload: move,
                 }));
             }
             else {
-                this.player1.send(JSON.stringify({
+                (_f = this.player1) === null || _f === void 0 ? void 0 : _f.socket.send(JSON.stringify({
                     type: messages_1.MOVE,
                     payload: move,
                 }));
@@ -55,16 +57,18 @@ class Game {
         this.board = new chess_js_1.Chess();
         this.movesCount = 0;
         this.startTime = new Date();
-        this.player1.send(JSON.stringify({
+        (_a = this.player1) === null || _a === void 0 ? void 0 : _a.socket.send(JSON.stringify({
             type: messages_1.INIT_GAME,
             payload: {
-                color: "white",
+                type: "w",
+                opponent: player2,
             },
         }));
-        this.player2.send(JSON.stringify({
+        (_b = this.player2) === null || _b === void 0 ? void 0 : _b.socket.send(JSON.stringify({
             type: messages_1.INIT_GAME,
             payload: {
-                color: "black",
+                type: "b",
+                opponent: player1,
             },
         }));
     }

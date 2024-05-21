@@ -14,12 +14,12 @@ export class GameManager {
   }
 
   public addUser(socket: WebSocket) {
-    console.log("User connected");
     this.users.push(socket);
     this.addHandler(socket);
   }
 
   public removeUser(socket: WebSocket) {
+    console.log("Here is am");
     this.users = this.users.filter((user) => user != socket);
   }
 
@@ -29,8 +29,14 @@ export class GameManager {
       console.log(message);
       if (message.type === INIT_GAME) {
         if (this.pendingUser) {
-          //start the game
+          // same user should not connect with himself
+          if (this.pendingUser.socket == socket) {
+            socket.send("Please wait we are finding your oppenent");
+            return;
+          }
 
+          //start the game
+          this.pendingUser.waiting = false;
           const game = new Game(this.pendingUser, {
             name: message.name,
             type: "b",
@@ -53,7 +59,7 @@ export class GameManager {
           (curr) =>
             curr.player1?.socket === socket || curr.player2?.socket === socket
         );
-        if (game) console.log("game found");
+        console.log({ game });
         game?.makeMove(socket, message.move);
       }
     });
