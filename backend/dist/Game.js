@@ -66,6 +66,7 @@ class Game {
         }));
         (_b = this.player2) === null || _b === void 0 ? void 0 : _b.socket.send(JSON.stringify({
             type: messages_1.INIT_GAME,
+            offer: player1 === null || player1 === void 0 ? void 0 : player1.offer,
             payload: {
                 type: "b",
                 opponent: player1,

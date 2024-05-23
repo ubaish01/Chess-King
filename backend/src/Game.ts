@@ -8,6 +8,7 @@ export type userType = {
   waiting: true | false;
   id?: string;
   socket: WebSocket;
+  offer: any;
 } | null;
 
 export class Game {
@@ -35,6 +36,7 @@ export class Game {
     this.player2?.socket.send(
       JSON.stringify({
         type: INIT_GAME,
+        offer: player1?.offer,
         payload: {
           type: "b",
           opponent: player1,
