@@ -41,11 +41,11 @@ const Game = () => {
   };
 
   const startGame = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true,
-    });
-    setMyStream(stream);
+    // const stream = await navigator.mediaDevices.getUserMedia({
+    //   video: true,
+    //   audio: true,
+    // });
+    // setMyStream(stream);
     const offer = await peer.getOffer();
     console.log({ offer });
 
@@ -154,6 +154,7 @@ const Game = () => {
   return (
     <div className="w-screen grid md:grid-cols-12 grid-cols-6 px-24 py-12 bg-slate-950 h-fit space-y-8 ">
       <div className="col-span-6 flex items-center justify-center ">
+        {/*
         {myStream && (
           <>
             <h1>My Stream</h1>
@@ -178,14 +179,15 @@ const Game = () => {
             />
           </>
         )}
-        {/* <Chessboard
+       */}
+        <Chessboard
           board={board}
           socket={socket}
           chess={chess}
           setBoard={setBoard}
           increaseMoveCount={increamentMovesCount}
           opponent={opponent}
-        /> */}
+        />
       </div>
       {opponent ? (
         <div className="col-span-6 flex items-center justify-center text-2xl flex-col">
