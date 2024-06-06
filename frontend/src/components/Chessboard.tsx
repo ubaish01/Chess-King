@@ -34,9 +34,9 @@ const Chessboard = ({
     return false;
   };
 
-  const isAttacked = () => {
-    const issfds = chess.isAttacked("a1", "b");
-  };
+  // const isAttacked = () => {
+  //   const issfds = chess.isAttacked("a1", "b");
+  // };
 
   const handleMove = (i: number, j: number) => {
     if (!opponent) {

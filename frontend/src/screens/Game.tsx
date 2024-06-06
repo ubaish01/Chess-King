@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Chessboard from "../components/Chessboard";
 import { useSocket } from "../hooks/useSocket";
 import { Chess } from "chess.js";
 import clsx from "clsx";
 import peer from "../service/peer";
-import ReactPlayer from "react-player";
 
 export const INIT_GAME = "init_game";
 export const GAME_OVER = "game_over";
@@ -34,7 +33,7 @@ const Game = () => {
   const [movesCount, setMovesCount] = useState(0);
 
   const [myStream, setMyStream] = useState<StreamType>(null);
-  const [remoteStream, setRemoteStream] = useState<StreamType>(null);
+  // const [remoteStream, setRemoteStream] = useState<StreamType>(null);
 
   const increamentMovesCount = () => {
     setMovesCount((prev) => prev + 1);
@@ -143,9 +142,10 @@ const Game = () => {
   }, [handleNegoNeeded]);
   useEffect(() => {
     peer?.peer?.addEventListener("track", async (ev) => {
+      //@ts-ignore  NEED TO UPDATE THIS
       const remoteStream = ev.streams;
       console.log("GOT TRACKS!!");
-      setRemoteStream(remoteStream[0]);
+      // setRemoteStream(remoteStream[0]);
     });
   }, []);
 
