@@ -19,8 +19,6 @@ export type opponentType = {
   socket?: WebSocket;
 } | null;
 
-type StreamType = MediaStream | null;
-
 const chess = new Chess();
 
 const Game = () => {
@@ -32,7 +30,7 @@ const Game = () => {
   // const [type, setType] = useState<"w" | "b">("w");
   const [movesCount, setMovesCount] = useState(0);
 
-  const [myStream, setMyStream] = useState<StreamType>(null);
+  // const [myStream, setMyStream] = useState<StreamType>(null);
   // const [remoteStream, setRemoteStream] = useState<StreamType>(null);
 
   const increamentMovesCount = () => {
@@ -64,13 +62,13 @@ const Game = () => {
     setOpponent(message.payload.opponent);
 
     if (message.offer) {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true,
-      });
+      // const stream = await navigator.mediaDevices.getUserMedia({
+      //   video: true,
+      //   audio: true,
+      // });
 
       const ans = await peer.getAnswer(message.offer);
-      setMyStream(stream);
+      // setMyStream(stream);
       // sending the offer to opponent
       socket?.send(
         JSON.stringify({
@@ -90,18 +88,10 @@ const Game = () => {
     increamentMovesCount();
   };
 
-  const sendStreams = () => {
-    if (myStream) {
-      for (const track of myStream?.getTracks()) {
-        peer?.peer?.addTrack(track, myStream);
-      }
-    }
-  };
-
   const handleOfferAccepted = async (message: any) => {
     peer.setLocalDescription(message.ans);
     console.log("Offer acceped");
-    sendStreams();
+    // sendStreams();
   };
 
   const handleNegoNeeded = async () => {
